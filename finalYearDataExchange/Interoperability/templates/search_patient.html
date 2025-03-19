@@ -1,0 +1,33 @@
+{% extends 'starter-dash.html' %}
+{% load static %}
+
+{% block body %}
+
+<h1>Search Medical Records by Patient ID</h1>
+<form method="post" action="{% url 'search_patient' %}">
+    {% csrf_token %}
+    <label for="patient_id">Patient ID:</label>
+    <input type="text" id="patient_id" name="patient_id" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if records %}
+    <h2>Medical Records for Patient: {{ patient_name }}</h2>
+    <ul>
+        {% for record in records %}
+            <li>
+                <p><strong>Record ID:</strong> {{ record.id }}</p>
+                <p><strong>Doctor:</strong> {{ record.doctor }}</p>
+                <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+                <p><strong>Treatment:</strong> {{ record.treatment }}</p>
+                <p><strong>Created At:</strong> {{ record.created_at }}</p>
+                <p><strong>Source:</strong> {{ record.source }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% elif error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+
+{% endblock %}

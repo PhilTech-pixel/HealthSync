@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <label>Username:</label>
+    {{ form.username }}
+
+    <label>Email:</label>
+    {{ form.email }}
+
+    <label>Password:</label>
+    {{ form.password }}
+
+    <label>Confirm Password:</label>
+    {{ form.confirm_password }}
+
+    <label>Role:</label>
+    {{ form.role }}
+
+    <button type="submit">Register</button>
+</form>
+
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+</body>
+</html>
