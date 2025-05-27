@@ -28,8 +28,17 @@ class DoctorProfile(models.Model):
 class PatientProfile(models.Model):
     patient_id = models.CharField(max_length=10, primary_key=True, editable=False, unique=True)
     user_profile = models.OneToOneField("UserProfile", on_delete=models.CASCADE)
+    gender = models.CharField(
+    max_length=10,
+    choices=[("male", "Male"), ("female", "Female"), ("other", "Other")]
+    )
     date_of_birth = models.DateField()
+    blood_type = models.CharField(
+    max_length=5,
+    choices=[("A+", "A+"), ("A-", "A-"), ("B+", "B+"), ("B-", "B-"), ("AB+", "AB+"), ("AB-", "AB-"), ("O+", "O+"), ("O-", "O-")]
+    )
     national_id = models.CharField(max_length=255)
+    body_mass_index = models.FloatField()
 
     def save(self, *args, **kwargs):
         if not self.patient_id:  # Only set ID if it's not already assigned
@@ -65,8 +74,13 @@ class AdminProfile(models.Model):
 class MedicalRecord(models.Model):
     patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE)
     doctor = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE)
-    diagnosis = models.TextField()
-    treatment = models.TextField()
+    medical_condition = models.TextField()
+    date_of_admission = models.DateField()
+    date_of_discharge = models.DateField()
+    insurance_provider = models.CharField(max_length=255)
+    admission_type = models.CharField(max_length=255)
+    test_results = models.TextField()
+    medication = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
 

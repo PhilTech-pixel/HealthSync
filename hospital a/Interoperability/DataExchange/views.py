@@ -145,6 +145,9 @@ def patient_register(request):
         national_id = request.POST["national_id"]
         contact_info = request.POST["contact_info"]
         date_of_birth = request.POST["date_of_birth"]
+        gender = request.POST["gender"]
+        blood_type = request.POST["blood_type"]
+        body_mass_index = request.POST["body_mass_index"]
         password = request.POST["password"]
 
         user = User.objects.create(username=username, email=email)
@@ -159,6 +162,9 @@ def patient_register(request):
             user_profile=user_profile,
             national_id=national_id,
             date_of_birth=date_of_birth,
+            gender=gender,
+            blood_type=blood_type,
+            body_mass_index=body_mass_index
 
 
         )
@@ -167,6 +173,7 @@ def patient_register(request):
         return redirect("login")
     else:
        return render(request, "d_register.html")
+   
 
 
 
@@ -258,8 +265,15 @@ def search_patient(request):
                     'id': record.id,
                     'patient': patient_name,
                     'doctor': record.doctor.user_profile.user.username,
-                    'diagnosis': record.diagnosis,
-                    'treatment': record.treatment,
+                    'gender': record.patient.gender,
+
+                    'medical_condition': record.medical_condition,
+                    'insurance_provider': record.insurance_provider,
+                    'admission_type': record.admission_type,
+                    'medication': record.medication,
+                    'test_results': record.test_results,
+                    'date_of_admission': record.date_of_admission,
+                    'date_of_discharge': record.date_of_discharge,
                     'created_at': record.created_at,
                     'source': 'Local Database',
                 })
@@ -278,8 +292,13 @@ def search_patient(request):
                         'id': api_record['id'],
                         'patient': patient_name,
                         'doctor': api_record['doctor'],
-                        'diagnosis': api_record['diagnosis'],
-                        'treatment': api_record['treatment'],
+                        'medical_condition': api_record['medical_condition'],
+                        'insurance_provider': api_record['insurance_provider'],
+                        'admission_type': api_record['admission_type'],
+                        'medication': api_record['medication'],
+                        'test_results': api_record['test_results'],
+                        'date_of_admission': api_record['date_of_admission'],
+                        'date_of_discharge': api_record['date_of_discharge'],
                         'created_at': api_record['created_at'],
                         'source': 'Hospital B API',
                     })

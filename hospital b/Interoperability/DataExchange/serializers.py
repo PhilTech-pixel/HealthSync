@@ -10,7 +10,7 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MedicalRecord
-        fields = ['id', 'patient', 'doctor', 'diagnosis', 'treatment', 'created_at']
+        fields = ['id', 'patient', 'doctor', 'medical_condition','insurance_provider','admission_type','medication','test_results','date_of_admission','date_of_discharge', 'created_at']
 
     def get_patient(self, obj):
         # Safely get the patient's username

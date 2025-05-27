@@ -1,0 +1,77 @@
+{% extends 'starter-dash.html' %}
+{% load static %}
+
+{% block body %}
+<div class="row ml-3 mt-4">
+<h1 style="color: black" class="ml-5 mb-5">Medical Records</h1>
+   
+<a href="{% url 'search_patient' %}">
+    <button class="btn btn-success ml-5">Request Medical Record From Another Hospital</button>
+    </a>
+   
+</div>
+   
+
+
+     <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Treated Patients Records</h6>
+                            
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient</th>
+                                            <th>Doctor</th>
+                                            <th>Medical Condition</th>
+                                            <th>Date of Admission</th>
+                                            <th>Date of Discharge</th>
+                                            <th>Insurance Provider</th>
+                                            <th>Admission Type</th>
+                                            <th>Test Results</th>
+                                            <th>Medication</th>
+                                            <th>Hospital</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Patient</th>
+                                            <th>Doctor</th>
+                                            <th>Medical Condition</th>
+                                            <th>Date of Admission</th>
+                                            <th>Date of Discharge</th>
+                                            <th>Insurance Provider</th>
+                                            <th>Admission Type</th>
+                                            <th>Test Results</th>
+                                            <th>Medication</th>
+                                            <th>Hospital</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    {% for record in records %}
+                                    <tr>
+                                        <td>{{ record.patient }}</td>
+                                        <td>{{ record.doctor }}</td>
+                                        <td>{{ record.medical_condition }}</td>
+                                        <td>{{ record.date_of_admission }}</td>
+                                        <td>{{ record.date_of_discharge }}</td>
+                                        <td>{{ record.insurance_provider }}</td>
+                                        <td>{{ record.admission_type }}</td>
+                                        <td>{{ record.test_results }}</td>
+                                        <td>{{ record.medication }}</td>
+                                        <td>{{ record.hospital }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+
+{% endblock %}
