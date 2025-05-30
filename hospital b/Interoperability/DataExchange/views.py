@@ -41,7 +41,7 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data["password"])  # Hash the password
+            user.set_password(form.cleaned_data["password"]) 
             user.save()
 
             # Create UserProfile with selected role
@@ -68,9 +68,9 @@ def my_login(request):
             try:
                 role = user.userprofile.role
                 if role == "doctor":
-                    return redirect("doctor_dashboard")  # Replace with your actual URL name
+                    return redirect("doctor_dashboard")  
                 elif role == "patient":
-                    return redirect("patient_dashboard")  # Replace with your actual URL name
+                    return redirect("patient_dashboard") 
             except UserProfile.DoesNotExist:
                 messages.error(request, "User profile not found.")
                 return redirect("login")
